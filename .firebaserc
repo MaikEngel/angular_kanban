@@ -1,14 +1,14 @@
 {
   "targets": {
-    "kanban-707f3": {
+    "kanban-49a9a": {
       "hosting": {
         "kanban": [
-          "kanban-707f3"
+          "kanban-49a9a"
         ]
       }
     }
   },
   "projects": {
-    "default": "kanban-707f3"
+    "default": "kanban-49a9a"
   }
 }

@@ -3,7 +3,7 @@ export class Task {
     public category: string;
     public urgency: string;
     public description: string;
-    public date: number
+    public date: any;
 
     constructor(obj?: any) {
         this.title = obj? obj.title : '';

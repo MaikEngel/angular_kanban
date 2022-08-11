@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, getDoc, updateDoc } from '@angular/fire/firestore';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { doc, setDoc } from "firebase/firestore";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Task } from 'src/models/task.class';
 import { GlobalArrayService } from '../global-array.service';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { addDoc, doc, setDoc } from "firebase/firestore";
 
 @Component({
   selector: 'app-add-task',
@@ -28,7 +29,11 @@ export class AddTaskComponent implements OnInit {
   public add_task: FormGroup;
   task = new Task();
 
-  constructor(public globalArray: GlobalArrayService) { }
+  task$: Observable<any>;
+
+
+  constructor(public globalArray: GlobalArrayService, public firestore: Firestore) {
+  }
 
   ngOnInit(): void {
 
@@ -49,9 +54,14 @@ export class AddTaskComponent implements OnInit {
     return this.add_task.controls[controlName].hasError(errorName);
   }
 
-  addTask() {
-    this.globalArray.todo.push(this.task.toJSON())
+  async addTask() {
+    const coll = collection(this.firestore, 'tasks');
+    this.task$ = collectionData(coll);
+    const docRef = await addDoc(coll, {
+      todo: this.task.toJSON()
+    });
+    console.log(docRef.id);
+    this.globalArray.todo.push(this.task.toJSON());
     console.log(this.globalArray.todo);
-    
   }
 }
