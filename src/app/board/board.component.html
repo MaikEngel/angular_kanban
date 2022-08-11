@@ -1,0 +1,49 @@
+<div cdkDropListGroup>
+    <div class="example-container">
+      <h2>To do</h2>
+  
+      <div
+        cdkDropList
+        [cdkDropListData]="this.globalArray.todo"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of this.globalArray.todo" cdkDrag>{{item}}</div>
+      </div>
+    </div>
+  
+    <div class="example-container">
+      <h2>In Progress</h2>
+  
+      <div
+        cdkDropList
+        [cdkDropListData]="this.globalArray.inProgress"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of this.globalArray.inProgress" cdkDrag>{{item}}</div>
+      </div>
+    </div>
+
+    <div class="example-container">
+        <h2>Testing</h2>
+    
+        <div
+          cdkDropList
+          [cdkDropListData]="this.globalArray.testing"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of this.globalArray.testing" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+
+      <div class="example-container">
+        <h2>Done</h2>
+    
+        <div
+          cdkDropList
+          [cdkDropListData]="this.globalArray.done"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of this.globalArray.done" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+  </div>

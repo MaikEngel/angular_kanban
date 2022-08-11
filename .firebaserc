@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kanban-707f3": {
+      "hosting": {
+        "kanban": [
+          "kanban-707f3"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kanban-707f3"
+  }
+}

@@ -1,0 +1,49 @@
+<form [formGroup]="add_task" (ngSubmit)="addTask()">
+    <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" [(ngModel)]="task.title" matInput>
+        <mat-error *ngIf="checkError('title', 'required')">Title is required</mat-error>
+        <mat-error *ngIf="checkError('title', 'minlength')">Title should be more than 5 characters</mat-error>
+        <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 20 characters</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" [(ngModel)]="task.category">
+            <mat-option value="hr">HR</mat-option>
+            <mat-option value="marketing">Marketing</mat-option>
+            <mat-option value="warehouse">Warehouse</mat-option>
+            <mat-option value="sales">Sales</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkError('category', 'required')">Category is required</mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Urgency</mat-label>
+        <mat-select formControlName="urgency" [(ngModel)]="task.urgency">
+            <mat-option value="high">High</mat-option>
+            <mat-option value="medium">Medium</mat-option>
+            <mat-option value="low">Low</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkError('urgency', 'required')">Category is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" [(ngModel)]="task.description"></textarea>
+        <mat-error *ngIf="checkError('description', 'required')">Description is required</mat-error>
+        <mat-error *ngIf="checkError('description', 'minlength')">Description should be more than 5 characters</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" [(ngModel)]="task.date">
+        <mat-error *ngIf="checkError('date', 'required')">Date is required</mat-error>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button type="submit" [disabled]="!add_task.valid">test</button>
+</form>
