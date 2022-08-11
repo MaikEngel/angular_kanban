@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
-import { addDoc, collection, Firestore } from 'firebase/firestore';
-import { Task } from 'src/models/task.class';
+import { Firestore, collectionData, collection, addDoc } from '@angular/fire/firestore';
 import { GlobalArrayService } from '../global-array.service';
+import { Observable } from 'rxjs';
+import { Task } from 'src/models/task.class';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,9 @@ import { GlobalArrayService } from '../global-array.service';
 })
 export class LoginComponent implements OnInit {
 
+  task$: Observable<any>;
+
+  task = new Task();
 
 
   constructor(public router: Router, public firestore: Firestore, public globalArray: GlobalArrayService) { }
@@ -19,8 +23,15 @@ export class LoginComponent implements OnInit {
   }
 
   async goToBoard() {
-
-    this.router.navigateByUrl('/board')
+    const coll = collection(this.firestore, 'tasks');
+    this.task$ = collectionData(coll);
+    const docRef = await addDoc(coll, {
+      todo: [],
+      inProgress: [],
+      testing: [],
+      done: [],
+    });
+    this.router.navigateByUrl('/board/' + docRef.id)
   }
 
 }

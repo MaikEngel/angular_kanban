@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { Task } from 'src/models/task.class';
 import { GlobalArrayService } from '../global-array.service';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { ActivatedRoute } from '@angular/router';
+import { query, where, onSnapshot } from "firebase/firestore";
 
 @Component({
   selector: 'app-add-task',
@@ -32,13 +34,18 @@ export class AddTaskComponent implements OnInit {
   task$: Observable<any>;
 
 
-  constructor(public globalArray: GlobalArrayService, public firestore: Firestore) {
+  constructor(public globalArray: GlobalArrayService, public firestore: Firestore, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
 
-    console.log(this.task);
+    this.route.params.subscribe(params => {
+      this.currentId = params['id'];
+    });
 
+    console.log(this.currentId);
+
+    this.getDoc()
 
     this.add_task = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
@@ -54,14 +61,44 @@ export class AddTaskComponent implements OnInit {
     return this.add_task.controls[controlName].hasError(errorName);
   }
 
-  async addTask() {
-    const coll = collection(this.firestore, 'tasks');
-    this.task$ = collectionData(coll);
-    const docRef = await addDoc(coll, {
-      todo: this.task.toJSON()
+  async getDoc() {
+
+    const docRef = doc(this.firestore, "tasks", this.currentId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      this.globalArray.todo = docSnap.data()['todo'];
+      this.globalArray.inProgress = docSnap.data()['inProgress'];
+      this.globalArray.testing = docSnap.data()['testing'];
+      this.globalArray.done = docSnap.data()['done'];
+      console.log(this.globalArray);
+      
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
+
+  updateLocal() {
+    const q = query(collection(this.firestore, "tasks", this.currentId));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.globalArray.todo.push(doc.data()['todo']);
+        this.globalArray.inProgress.push(doc.data()['name']);
+        this.globalArray.testing.push(doc.data()['name']);
+        this.globalArray.done.push(doc.data()['name']);
+      });
     });
-    console.log(docRef.id);
+  }
+
+  async addTask() {
     this.globalArray.todo.push(this.task.toJSON());
+    const coll = collection(this.firestore, 'tasks',);
+    this.task$ = collectionData(coll);
+    const userRef = doc(coll, this.currentId);
+    const docRef = await updateDoc(userRef, {
+      todo: this.globalArray.todo,
+    });
     console.log(this.globalArray.todo);
   }
 }
