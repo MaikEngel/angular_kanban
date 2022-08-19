@@ -5,7 +5,7 @@ import { Task } from 'src/models/task.class';
 import { GlobalArrayService } from '../global-array.service';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { addDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { query, where, onSnapshot } from "firebase/firestore";
 
 @Component({
@@ -33,7 +33,7 @@ export class AddTaskComponent implements OnInit {
   task$: Observable<any>;
 
 
-  constructor(public globalArray: GlobalArrayService, public firestore: Firestore, private route: ActivatedRoute) {
+  constructor(public globalArray: GlobalArrayService, public firestore: Firestore, private route: ActivatedRoute, public  router: Router) {
   }
 
   ngOnInit(): void {
@@ -98,7 +98,7 @@ export class AddTaskComponent implements OnInit {
     const docRef = await updateDoc(userRef, {
       TASKS: this.globalArray.TASKS,
     })
-    console.log();
+    this.router.navigateByUrl('/board/' + this.globalArray.currentId)
     
   }
 }
