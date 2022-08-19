@@ -26,7 +26,6 @@ export class AddTaskComponent implements OnInit {
   coll: any;
   docRef: any;
   docSnap: any;
-  currentId: any;
 
   public add_task: FormGroup;
   task = new Task();
@@ -38,12 +37,12 @@ export class AddTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.globalArray.startScreen = false;
     this.route.params.subscribe(params => {
-      this.currentId = params['id'];
+      this.globalArray.currentId = params['id'];
     });
 
-    console.log(this.currentId);
+    console.log(this.globalArray.currentId);
 
     this.getDoc()
 
@@ -63,14 +62,11 @@ export class AddTaskComponent implements OnInit {
 
   async getDoc() {
 
-    const docRef = doc(this.firestore, "tasks", this.currentId);
+    const docRef = doc(this.firestore, "tasks", this.globalArray.currentId);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      this.globalArray.todo = docSnap.data()['todo'];
-      this.globalArray.inProgress = docSnap.data()['inProgress'];
-      this.globalArray.testing = docSnap.data()['testing'];
-      this.globalArray.done = docSnap.data()['done'];
+      this.globalArray.TASKS = docSnap.data()['TASKS'];
       console.log(this.globalArray);
       
     } else {
@@ -79,26 +75,30 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  updateLocal() {
-    const q = query(collection(this.firestore, "tasks", this.currentId));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        this.globalArray.todo.push(doc.data()['todo']);
-        this.globalArray.inProgress.push(doc.data()['name']);
-        this.globalArray.testing.push(doc.data()['name']);
-        this.globalArray.done.push(doc.data()['name']);
-      });
-    });
-  }
+  // updateLocal() {
+  //   const q = query(collection(this.firestore, "tasks", this.globalArray.currentId));
+  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       this.globalArray.todo.push(doc.data()['todo']);
+  //       this.globalArray.inProgress.push(doc.data()['name']);
+  //       this.globalArray.testing.push(doc.data()['name']);
+  //       this.globalArray.done.push(doc.data()['name']);
+  //       console.log('Nareg ist ganz okay');
+        
+  //     });
+  //   });
+  // }
 
   async addTask() {
-    this.globalArray.todo.push(this.task.toJSON());
+    this.globalArray.TASKS.todo.push(this.task.toJSON());
+    this.globalArray.TASKS.backlog.push(this.task.toJSON());
     const coll = collection(this.firestore, 'tasks',);
     this.task$ = collectionData(coll);
-    const userRef = doc(coll, this.currentId);
+    const userRef = doc(coll, this.globalArray.currentId);
     const docRef = await updateDoc(userRef, {
-      todo: this.globalArray.todo,
-    });
-    console.log(this.globalArray.todo);
+      TASKS: this.globalArray.TASKS,
+    })
+    console.log();
+    
   }
 }

@@ -4,6 +4,7 @@ export class Task {
     public urgency: string;
     public description: string;
     public date: any;
+    public createdAt: any;
 
     constructor(obj?: any) {
         this.title = obj? obj.title : '';
@@ -19,7 +20,8 @@ export class Task {
             category: this.category,
             urgency: this.urgency,
             description: this.description,
-            date: this.date,
+            date: this.date.toLocaleDateString(),
+            createdAt: new Date().toLocaleDateString()
         }
     }
 }

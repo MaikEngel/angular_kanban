@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { DatabaseService } from '../database.service';
+import { GlobalArrayService } from '../global-array.service';
 
 @Component({
   selector: 'app-start-screen',
@@ -10,25 +9,14 @@ import { DatabaseService } from '../database.service';
 })
 export class StartScreenComponent implements OnInit {
 
-  constructor(public data: DatabaseService, public router: Router) { }
+  constructor(public router: Router, public globalArray: GlobalArrayService) { }
 
   ngOnInit(): void {
+    this.globalArray.startScreen = true;
   }
-  
-  async getId(){
-    this.data.coll = collection(this.data.firestore, 'tasks');
-    const docRef = doc(this.data.coll);
-    const docSnap = await getDoc(docRef);
-    const currentId = docRef.id;
-    await setDoc(doc(this.data.coll, currentId), {
-      tasks: {
-        todo: this.data.todo,
-        inProgress: this.data.inProgress,
-        testing: this.data.testing,
-        done: this.data.done,
-      }
-    });
-    this.router.navigateByUrl('/board/' + currentId)
+
+  goToLogin() {
+    this.router.navigateByUrl('/login')
   }
 
 }

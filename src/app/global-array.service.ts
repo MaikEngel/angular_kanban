@@ -5,11 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalArrayService {
 
-  todo = [];
-  inProgress = [];
-  testing = [];
-  done = [];
+  TASKS: any = {
+    'todo': [],
+    'inProgress': [],
+    'testing': [],
+    'done': [],
+    'backlog': [],
+  }
 
+  currentId: any;
+  startScreen: any;
 
   constructor() { }
 }

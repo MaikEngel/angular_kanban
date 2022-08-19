@@ -1,0 +1,49 @@
+.navigation {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+}
+
+.navigationHeader {
+    background-color: rgba(255, 255, 255, 0.64);
+    color: black;
+
+    span {
+        margin-right: 36px;
+        cursor: pointer;
+
+        &:hover {
+            color: #172f8c;
+        }
+    }
+
+    img {
+        height: 64px;
+        margin-right: 36px;
+    }
+}
+
+.sidenavContent {
+    display: flex;
+    align-items: center;
+    padding: 32px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+button {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    padding: 0;
+
+}

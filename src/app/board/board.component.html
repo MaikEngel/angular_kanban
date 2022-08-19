@@ -1,49 +1,190 @@
-<div cdkDropListGroup>
+<div class="layout">
+  <div class="headline">
+    <h2>BOARD</h2>
+  </div>
+  <div class="board" cdkDropListGroup>
     <div class="example-container">
       <h2>To do</h2>
-  
-      <div
-        cdkDropList
-        [cdkDropListData]="globalArray.todo"
-        class="example-list"
+
+      <div cdkDropList [cdkDropListData]="globalArray.TASKS.todo" class="example-list"
         (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of globalArray.todo" cdkDrag>{{item?.title}}</div>
+        <div class="example-box" *ngFor="let item of globalArray.TASKS.todo" cdkDrag [ngClass]="{
+          'red' : item?.urgency == 'high',
+          'yellow' : item?.urgency == 'medium',
+          'green' : item?.urgency == 'low'
+
+       }">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item?.title}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="taskDescription">
+              <p> {{item?.description}}</p>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="error"></mat-icon>
+                <p> {{item?.date}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="schedule"></mat-icon>
+                <p>{{item?.urgency}}</p>
+              </div>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="category"></mat-icon>
+                <p>{{item?.category}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="edit_calendar"></mat-icon>
+                <p> {{item?.createdAt}}</p>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
       </div>
     </div>
-  
+
     <div class="example-container">
       <h2>In Progress</h2>
-  
-      <div
-        cdkDropList
-        [cdkDropListData]="globalArray.inProgress"
-        class="example-list"
+
+      <div cdkDropList [cdkDropListData]="globalArray.TASKS.inProgress" class="example-list"
         (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of globalArray.inProgress" cdkDrag>{{item?.title}}</div>
+        <div class="example-box" *ngFor="let item of globalArray.TASKS.inProgress" cdkDrag [ngClass]="{
+          'red' : item?.urgency == 'high',
+          'yellow' : item?.urgency == 'medium',
+          'green' : item?.urgency == 'low'
+       }">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item?.title}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="taskDescription">
+              <p> {{item?.description}}</p>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="error"></mat-icon>
+                <p> {{item?.date}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="schedule"></mat-icon>
+                <p>{{item?.urgency}}</p>
+              </div>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="category"></mat-icon>
+                <p>{{item?.category}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="edit_calendar"></mat-icon>
+                <p> {{item?.createdAt}}</p>
+              </div>
+            </div>
+            <!-- <div>
+              <mat-icon mat-button [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="Example home icon" fontIcon="sync_alt"></mat-icon>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="drop()">Item 1</button>
+                <button mat-menu-item>Item 2</button>
+              </mat-menu>
+            </div> -->
+          </mat-expansion-panel>
+        </div>
       </div>
     </div>
 
     <div class="example-container">
-        <h2>Testing</h2>
-    
-        <div
-          cdkDropList
-          [cdkDropListData]="globalArray.testing"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of globalArray.testing" cdkDrag>{{item?.title}}</div>
-        </div>
-      </div>
+      <h2>Testing</h2>
 
-      <div class="example-container">
-        <h2>Done</h2>
-    
-        <div
-          cdkDropList
-          [cdkDropListData]="globalArray.done"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of globalArray.done" cdkDrag>{{item?.title}}</div>
+      <div cdkDropList [cdkDropListData]="globalArray.TASKS.testing" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of globalArray.TASKS.testing" cdkDrag [ngClass]="{
+          'red' : item?.urgency == 'high',
+          'yellow' : item?.urgency == 'medium',
+          'green' : item?.urgency == 'low'
+       }">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item?.title}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="taskDescription">
+              <p> {{item?.description}}</p>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="error"></mat-icon>
+                <p> {{item?.date}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="schedule"></mat-icon>
+                <p>{{item?.urgency}}</p>
+              </div>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="category"></mat-icon>
+                <p>{{item?.category}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="edit_calendar"></mat-icon>
+                <p> {{item?.createdAt}}</p>
+              </div>
+            </div>
+          </mat-expansion-panel>
         </div>
       </div>
+    </div>
+
+    <div class="example-container">
+      <h2>Done</h2>
+
+      <div cdkDropList [cdkDropListData]="globalArray.TASKS.done" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of globalArray.TASKS.done" cdkDrag [ngClass]="{
+          'red' : item?.urgency == 'high',
+          'yellow' : item?.urgency == 'medium',
+          'green' : item?.urgency == 'low'
+       }">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item?.title}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="taskDescription">
+              <p> {{item?.description}}</p>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="error"></mat-icon>
+                <p> {{item?.date}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="schedule"></mat-icon>
+                <p>{{item?.urgency}}</p>
+              </div>
+            </div>
+            <div class="layoutTask">
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="category"></mat-icon>
+                <p>{{item?.category}}</p>
+              </div>
+              <div class="displayFlex">
+                <mat-icon aria-hidden="false" fontIcon="edit_calendar"></mat-icon>
+                <p> {{item?.createdAt}}</p>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </div>
   </div>
+</div>

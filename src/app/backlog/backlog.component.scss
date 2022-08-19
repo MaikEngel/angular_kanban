@@ -1,0 +1,45 @@
+tr {
+    height: 56px;
+    max-height: 56px;
+
+}
+
+.backlogUrgencyWidth {
+    text-transform: capitalize;
+    width: auto;
+}
+
+.backlogUrgencyCategory {
+    text-transform: capitalize;
+    width: auto;
+}
+
+.backlogDescriptionWidth {
+    width: 40%;
+}
+
+.backlogDescription {
+    height: 80px !important;
+    overflow-y: scroll;
+    text-align: start;
+}
+
+.backlogLayout {
+    overflow-y: scroll;
+    height: 83vh;
+}
+
+th,
+td {
+    font-size: 18px;
+    margin-left: 32px !important;
+    margin-right: 32px !important;
+    text-align: center;
+}
+
+td {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
+
+}

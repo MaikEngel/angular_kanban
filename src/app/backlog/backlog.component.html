@@ -1,1 +1,23 @@
-<p>backlog works!</p>
+<div class="layout backlogLayout">
+    <div class="headline">
+        <h2>BACKLOG</h2>
+    </div>
+    <table>
+        <mat-card>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Urgency</th>
+                <th>Description</th>
+                <th>Created At</th>
+            </tr>
+            <tr *ngFor="let task of globalArray.TASKS.backlog" >
+                <td>{{task?.title}}</td>
+                <td class="backlogUrgencyCategory">{{task?.category}}</td>
+                <td class='backlogUrgencyWidth'>{{task?.urgency}}</td>
+                <td class='backlogDescriptionWidth'><div class="backlogDescription">{{task?.description}}</div></td>
+                <td>{{task?.createdAt}}</td>
+            </tr>
+        </mat-card>
+    </table>
+</div>

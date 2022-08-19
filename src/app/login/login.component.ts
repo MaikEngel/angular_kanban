@@ -20,16 +20,14 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router, public firestore: Firestore, public globalArray: GlobalArrayService) { }
 
   ngOnInit(): void {
+    this.globalArray.startScreen = true;
   }
 
   async goToBoard() {
     const coll = collection(this.firestore, 'tasks');
     this.task$ = collectionData(coll);
     const docRef = await addDoc(coll, {
-      todo: [],
-      inProgress: [],
-      testing: [],
-      done: [],
+      TASKS: this.globalArray.TASKS
     });
     this.router.navigateByUrl('/board/' + docRef.id)
   }
